@@ -1,0 +1,11 @@
+{
+    "name": "Aldes",
+    "hacs": "2.0.1",
+    "domains": [
+        "binary_sensor",
+        "climate",
+        "sensor"
+    ],
+    "homeassistant": "2025.2.4",
+    "render_readme": true
+}
