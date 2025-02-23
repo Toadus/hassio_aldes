@@ -18,6 +18,7 @@ _MODES = {
 }
 
 _DISPLAY_NAMES: Final = {
+    'AIR_TOP' : 'InspirAIR Top',
     'INSPIRAIR_HOME_S' : 'InspirAIR® Home S',
     'EASY_HOME_CONNECT' : 'EASYHOME PureAir Compact CONNECT'
 }
