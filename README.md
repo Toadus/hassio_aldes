@@ -1,4 +1,4 @@
-# Home Assistante custom component for Aldes products
+# Home Assistant custom component for Aldes products
 
 Simple integration to allow to select Aldes products mode from Home Assitant just providing username and password.
 
