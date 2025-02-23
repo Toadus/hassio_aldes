@@ -25,12 +25,11 @@ _DISPLAY_NAMES: Final = {
 
 class AldesProduct:
 
-    def __init__(self, aldesApi: api.AldesApi, id: str, name: str, mode: str, tmpcu: str):
+    def __init__(self, aldesApi: api.AldesApi, id: str, name: str, mode: str):
         self._aldesApi = aldesApi
         self._id       = id
         self._name     = name
         self._mode     = mode
-        self._tmpcu    = tmpcu
     
     @property
     def id(self):
@@ -60,5 +59,3 @@ class AldesProduct:
         data = await self._aldesApi.get_product(self._id)
         if (mode := data.get('mode')) is not None:
             self._mode = mode
-        if (tmpcu := data.get('tmpcu')) is not None:
-            self._tmpcu = tmpcu
