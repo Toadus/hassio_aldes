@@ -55,7 +55,7 @@ class AldesApi:
             json = await response.json()
             if response.status == 200:
                 supported_products = list(filter(lambda product: is_product_supported(product['reference']), json))
-                return [AldesProduct(self, product['modem'], product['reference'], self._extract_product_mode(product)) for product in supported_products]
+                return [AldesProduct(self, product['modem'], product['reference'], self._extract_product_mode(product), '1') for product in supported_products]
             else:
                 return []
     
