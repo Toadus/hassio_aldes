@@ -65,7 +65,7 @@ class AldesApi:
         
         async with await self._request_with_auth_interceptor(self._session.get, f'{self._BASE_URL}/aldesoc/v5/users/me/products/{product_id}') as response:
             json = await response.json()
-            return {'mode': self._extract_product_mode(json), 'tmpcu': self._extract_product_sensor_value(json, 'TmpCu')} if response.status == 200 else {}
+            return {'mode': self._extract_product_mode(json), 'tmpcu': '1'} if response.status == 200 else {}
     
     async def request_set_mode(self, product_id: str, mode: str) -> None:
         if not self._token:
