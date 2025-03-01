@@ -6,7 +6,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity import EntityCategory
 
 from .const import DOMAIN, PRODUCT_COORDINATORS
-from .entity import AldesProductEntity
+from .entity import AldesProductDataUpdateCoordinator, AldesProductEntity
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
