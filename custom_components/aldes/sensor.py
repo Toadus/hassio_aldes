@@ -3,7 +3,7 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.entity import DeviceInfo, EntityCategory
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.const import UnitOfTemperature
 from typing import Any, Optional
 
 from .const import DOMAIN, PRODUCT_COORDINATORS
@@ -69,7 +69,7 @@ class AldesProductSensor(AldesProductEntity, SensorEntity):
         if unit_of_measurement:
             self._attr_native_unit_of_measurement = unit_of_measurement
             if unit_of_measurement == '°C':
-                self._attr_native_unit_of_measurement = TEMP_CELSIUS
+                self._attr_native_unit_of_measurement = UnitOfTemperature.CELSIUS
                 
         if state_class:
             self._attr_state_class = state_class
