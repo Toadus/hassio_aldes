@@ -65,7 +65,16 @@ class AldesApi:
         
         async with await self._request_with_auth_interceptor(self._session.get, f'{self._BASE_URL}/aldesoc/v5/users/me/products/{product_id}') as response:
             json = await response.json()
-            return {'mode': self._extract_product_mode(json), 'tmpcu': '1'} if response.status == 200 else {}
+            if response.status == 200:
+                # Process the response into a more usable format
+                result = {
+                    'mode': self._extract_product_mode(json),
+                    'tmpcu': '1',
+                    'product_data': json[0] if isinstance(json, list) and len(json) > 0 else json
+                }
+                return result
+            else:
+                return {}
     
     async def request_set_mode(self, product_id: str, mode: str) -> None:
         if not self._token:
@@ -91,10 +100,16 @@ class AldesApi:
             return initial_response
     
     def _extract_product_mode(self, product: Any) -> str:
-        return list(filter(lambda indicator: indicator['type'] == 'MODE', product['indicators']))[0]['value']
-    
-    def _extract_product_sensor_value(self, product: Any, sensor: str) -> str:
-        return list(filter(lambda indicator: indicator[sensor] != null, product['indicator']))[0]['value']
+        # Handle case when product is a list
+        if isinstance(product, list) and len(product) > 0:
+            product = product[0]
+            
+        if 'indicators' in product and product['indicators']:
+            mode_indicators = list(filter(lambda indicator: indicator['type'] == 'MODE', product['indicators']))
+            if mode_indicators:
+                return mode_indicators[0]['value']
+                
+        return ''
     
     def _build_mode(self, mode: str) -> List[str]:
         if mode == HOLIDAYS_MODE:
