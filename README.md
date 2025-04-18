@@ -1,15 +1,16 @@
-# Home Assistante custom component for Aldes products
+# Home Assistant custom component for Aldes InspirAIR Top
 
-Simple integration to allow to select Aldes products mode from Home Assitant just providing username and password.
+Simple integration to allow selection of mode from Home Assistant.
 
-Check the list of [supported products](https://github.com/aalmazanarbs/hassio_aldes/blob/master/aldes/product.py#L20).
+Licensed under the MIT License. See LICENSE for details.
 
 ## Features
 
-* Login in Aldes API with Oauth 2
+* Login in Aldes API
 * Configure Home Assitant Aldes entities
-* Allow to change Aldes products mode
-* Configure `Holidays` mode without specifying date
+* Change ventilation mode
+* Configure `Holidays` mode without specifying end date
+* Display ventilation metrics
 
 ## Installation on Home Assistant
 
