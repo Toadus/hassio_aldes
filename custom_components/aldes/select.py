@@ -1,3 +1,5 @@
+import asyncio
+
 from homeassistant.components.select import SelectEntity
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
@@ -28,4 +30,5 @@ class AldesProductEntityModeSelect(AldesProductEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         await self.coordinator.product.maybe_set_mode_from_display(option)
-        await self.coordinator.async_request_refresh()
+        # Start accelerated polling to quickly update the UI after mode change
+        asyncio.create_task(self.coordinator.accelerated_refresh_after_mode_change())

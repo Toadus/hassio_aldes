@@ -15,8 +15,7 @@ _MODES = {
     'Holidays' : HOLIDAYS_MODE,
     'Daily'    : 'V',
     'Boost'    : 'Y',
-    'Guest'    : 'X',
-    'Air Prog' : 'Z'
+    'Schedule' : 'Z'
 }
 
 _DISPLAY_NAMES: Final = {
@@ -40,7 +39,7 @@ _SENSORS = {
     },
     'exit_air_flow': {
         'key': 'AIR_EXTF_FLW',
-        'name': 'Exit Air Flow',
+        'name': 'Intake Air Flow',
         'icon': 'mdi:air-filter',
         'unit': 'm³/h',
         'device_class': 'volume_flow_rate',
@@ -48,7 +47,7 @@ _SENSORS = {
     },
     'exit_air_speed': {
         'key': 'AIR_EXTF_SPD',
-        'name': 'Exit Air Motor Speed',
+        'name': 'Intake Motor Speed',
         'icon': 'mdi:fan-speed-1',
         'unit': 'rpm',
         'entity_category': 'diagnostic'
@@ -64,7 +63,7 @@ _SENSORS = {
     },
     'intake_air_flow': {
         'key': 'AIR_FFE_FLW',
-        'name': 'Intake Air Flow',
+        'name': 'Exhause Air Flow',
         'icon': 'mdi:air-filter',
         'unit': 'm³/h',
         'device_class': 'volume_flow_rate',
@@ -90,7 +89,7 @@ _SENSORS = {
     },
     'intake_air_speed': {
         'key': 'AIR_VI_SPD',
-        'name': 'Intake Air Motor Speed',
+        'name': 'Exhaust Motor Speed',
         'icon': 'mdi:fan-speed-1',
         'unit': 'rpm',
         'entity_category': 'diagnostic'
@@ -140,6 +139,21 @@ class AldesProduct:
             
         key = sensor_info['key']
         
+        # Special handling for current mode to return display name instead of API value
+        if sensor_id == 'current_mode':
+            if not self._product_data or 'indicator' not in self._product_data:
+                return None
+                
+            indicator = self._product_data['indicator']
+            if key in indicator:
+                # Convert API value to display name
+                api_mode = indicator[key]
+                for display_mode, mode_value in _MODES.items():
+                    if mode_value == api_mode:
+                        return display_mode
+                return api_mode  # Fallback to API value if no match found
+            return None
+            
         # Extract last filter change date directly from the product data
         if key == 'dateLastFilterUpdate' and key in self._product_data:
             try:
